@@ -466,6 +466,7 @@ MonoBehaviour:
   front: {fileID: 809173030620372623}
   back: {fileID: 2508515431310192457}
   anim: {fileID: 6318762795749050975}
+  idx: 0
 --- !u!95 &6318762795749050975
 Animator:
   serializedVersion: 7
