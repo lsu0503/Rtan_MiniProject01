@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public Text timeText;
     float time = 0.0f;
 
-    public GameObject endText;
+    public GameObject successUi;
+    public GameObject failureUi;
     public int cardCount = 0;
 
     private void Awake()
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
         {
             time = 30.00f;
             timeText.text = time.ToString("N2");
-            GameOver();
+            GameFailure();
         }
         else
         {
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
             cardCount -= 2;
             if(cardCount <= 0)
             {
-                GameOver();
+                GameSuccess();
             }
         }
         else
@@ -65,9 +66,15 @@ public class GameManager : MonoBehaviour
         secondCard = null;
     }
 
-    void GameOver()
+    void GameSuccess()
     {
         Time.timeScale = 0.0f;
-        endText.SetActive(true);
+        successUi.SetActive(true);
+    }
+
+    void GameFailure()
+    {
+        Time.timeScale = 0.0f;
+        failureUi.SetActive(true);
     }
 }
