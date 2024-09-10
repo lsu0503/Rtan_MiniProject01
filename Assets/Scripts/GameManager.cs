@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject successUi;
     public GameObject failureUi;
+    public Text timeRecordNumText;
+    public Text bestTimeRecordNumText;
     public int cardCount = 0;
 
     private void Awake()
@@ -70,6 +72,30 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         successUi.SetActive(true);
+        timeRecordNumText.text = time.ToString("N2");
+
+        string bestTimeRecordKey = "bestTimeRecord";
+        float bestTimeRecord;
+        if (PlayerPrefs.HasKey(bestTimeRecordKey))
+        {
+            bestTimeRecord = PlayerPrefs.GetFloat(bestTimeRecordKey);
+        }
+        else
+        {
+            bestTimeRecord = time;
+        }
+
+        if (bestTimeRecord < time)
+        {
+            bestTimeRecord = time;
+            PlayerPrefs.SetFloat(bestTimeRecordKey, bestTimeRecord);
+        }
+        else
+        {
+            bestTimeRecord = time;
+        }
+
+        bestTimeRecordNumText.text = bestTimeRecord.ToString("N2");
     }
 
     void GameFailure()
