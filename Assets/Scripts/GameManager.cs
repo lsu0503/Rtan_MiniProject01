@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    AudioSource audiosource;
+    public AudioClip cilp;
 
     public Card firstCard;
     public Card secondCard;
@@ -30,23 +32,45 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audiosource=GetComponent<AudioSource>();
         Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        UpdateTimeRtan();
+        UpdateAlertSound();
+        UpdateTimeText();
+    }
 
+    void UpdateTimeRtan()
+    {
+        time += Time.deltaTime;
         if((int)(time / 1.0f) > timeRtanCount)
         {
             timeRtanCount++;
             Instantiate(timeRtan);
         }
+    }
 
+    void UpdateAlertSound()
+    {
+        if (time >= 26.0f && time < 30.0f)
+        {
+            if (!audiosource.isPlaying)
+            {
+                audiosource.PlayOneShot(cilp);
+            }
+            timeText.text = time.ToString("N2");
+        }
+    }
+
+    void UpdateTimeText()
+    {
         if (time >= 30.0f)
         {
-            time = 30.00f;
+            time = 30.0f;
             timeText.text = time.ToString("N2");
             GameFailure();
         }
@@ -57,13 +81,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void Matched()
-    { 
-        if(firstCard.idx == secondCard.idx)
+    {
+        if (firstCard.idx == secondCard.idx)
         {
             firstCard.DestroyCard();
             secondCard.DestroyCard();
             cardCount -= 2;
-            if(cardCount <= 0)
+            if (cardCount <= 0)
             {
                 GameSuccess();
             }
@@ -120,3 +144,11 @@ public class GameManager : MonoBehaviour
             time = 0.0f;
     }
 }
+
+
+
+
+
+
+
+
