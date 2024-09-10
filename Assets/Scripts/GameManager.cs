@@ -88,11 +88,11 @@ public class GameManager : MonoBehaviour
         if (bestTimeRecord < time)
         {
             bestTimeRecord = time;
-            PlayerPrefs.SetFloat(bestTimeRecordKey, bestTimeRecord);
         }
         else
         {
             bestTimeRecord = time;
+            PlayerPrefs.SetFloat(bestTimeRecordKey, bestTimeRecord);
         }
 
         bestTimeRecordNumText.text = bestTimeRecord.ToString("N2");
