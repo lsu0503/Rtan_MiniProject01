@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 8645358259914429272}
   - component: {fileID: 1128081911563734466}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: TextTimeAdded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

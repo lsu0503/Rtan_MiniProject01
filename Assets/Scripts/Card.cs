@@ -18,15 +18,20 @@ public class Card : MonoBehaviour
     [SerializeField]
     float flySpeed;
 
+    AudioSource audioSource;
+    public AudioClip clip;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        audioSource.volume = AudioManager.instance.seSound;
+
         moveAfterSec -= Time.deltaTime;
 		if (moveAfterSec <= 0f) {
             Vector2 dest = new Vector2(destX, destY);
@@ -49,6 +54,8 @@ public class Card : MonoBehaviour
         text.text = "";
         //front.SetActive(true);
         //back.SetActive(false);
+
+        audioSource.PlayOneShot(clip);
 
         if(GameManager.instance.firstCard == null)
         {

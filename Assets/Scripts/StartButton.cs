@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 public class StartButton : MonoBehaviour
 {
     public AudioClip clip;
-    AudioSource source;
+    AudioSource audioSource;
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+    }
 
+    private void Update()
+    {
+        audioSource.volume = AudioManager.instance.seSound;
     }
 
     public void StartButn()
@@ -20,7 +24,7 @@ public class StartButton : MonoBehaviour
 
     IEnumerator PlayAudioThenLoadScene()
     {
-        source.PlayOneShot(clip);
+        audioSource.PlayOneShot(clip);
         yield return new WaitForSeconds(clip.length);
         SceneManager.LoadScene("MainScene");
     }

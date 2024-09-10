@@ -4,8 +4,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    AudioSource audiosource;
-    public AudioClip cilp;
+    AudioSource audioSource;
+    public AudioClip[] clip = new AudioClip[2];
+    int clipCurrent;
 
     public Card firstCard;
     public Card secondCard;
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Text bestTimeRecordNumText;
     public int cardCount = 0;
 
+    bool onAlert;
+
     private void Awake()
     {
         if(instance == null)
@@ -32,13 +35,19 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audiosource=GetComponent<AudioSource>();
+        onAlert = false;
+        AudioManager.instance.SetClipStart(1);
+
+        audioSource =GetComponent<AudioSource>();
+
         Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume countrol
+
         UpdateTimeRtan();
         UpdateAlertSound();
         UpdateTimeText();
@@ -56,13 +65,10 @@ public class GameManager : MonoBehaviour
 
     void UpdateAlertSound()
     {
-        if (time >= 26.0f && time < 30.0f)
+        if (time >= 25.0f && time < 30.0f && !onAlert)
         {
-            if (!audiosource.isPlaying)
-            {
-                audiosource.PlayOneShot(cilp);
-            }
-            timeText.text = time.ToString("N2");
+            onAlert = true;
+            AudioManager.instance.SetClipStart(2);
         }
     }
 
@@ -86,6 +92,10 @@ public class GameManager : MonoBehaviour
         {
             firstCard.DestroyCard();
             secondCard.DestroyCard();
+
+            clipCurrent = 0;
+            Invoke("SoundOccur", 0.7f);
+
             cardCount -= 2;
             if (cardCount <= 0)
             {
@@ -94,6 +104,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            clipCurrent = 1;
+            Invoke("SoundOccur", 0.7f);
+
             firstCard.CloseCard();
             secondCard.CloseCard();
         }
@@ -103,6 +116,7 @@ public class GameManager : MonoBehaviour
 
     void GameSuccess()
     {
+        AudioManager.instance.StopAudio(); // Stop BGM
         Time.timeScale = 0.0f;
         successUi.SetActive(true);
         timeRecordNumText.text = time.ToString("N2");
@@ -133,6 +147,7 @@ public class GameManager : MonoBehaviour
 
     void GameFailure()
     {
+        AudioManager.instance.StopAudio(); // Stop BGM
         Time.timeScale = 0.0f;
         failureUi.SetActive(true);
     }
@@ -142,6 +157,11 @@ public class GameManager : MonoBehaviour
         time -= amount;
         if (time < 0.0f)
             time = 0.0f;
+    }
+
+    public void SoundOccur()
+    {
+        audioSource.PlayOneShot(clip[clipCurrent]);
     }
 }
 
