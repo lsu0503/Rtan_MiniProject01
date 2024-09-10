@@ -7,6 +7,9 @@ public class TimeRtan : MonoBehaviour
     public GameObject touched;
     public GameObject textAddTime;
 
+    AudioSource audioSource;
+    public AudioClip clip;
+
     bool isOver;
 
     float minY = 2.5f;
@@ -19,6 +22,8 @@ public class TimeRtan : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         moving.SetActive(true);
         touched.SetActive(false);
 
@@ -70,6 +75,8 @@ public class TimeRtan : MonoBehaviour
         isClicked = true;
         moving.SetActive(false);
         touched.SetActive(true);
+
+        audioSource.PlayOneShot(clip);
 
         Invoke("DestroyObject", 0.5f);
     }
