@@ -62,11 +62,11 @@ public class TimeRtan : MonoBehaviour
                 if (transform.position.x > 3.5f)
                     Destroy(gameObject);
             }
-        }
 
-        if (isOver && Input.GetMouseButtonDown(0))
-        {
-            OnClick();
+            if (isOver && Input.GetMouseButtonDown(0))
+            {
+                OnClick();
+            }
         }
     }
 
