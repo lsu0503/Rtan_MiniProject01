@@ -1,0 +1,89 @@
+using UnityEditor.Build.Content;
+using UnityEngine;
+
+public class TimeRtan : MonoBehaviour
+{
+    public GameObject front;
+    public GameObject back;
+    public GameObject textAddTime;
+
+    bool isOver;
+
+    float minY = 2.5f;
+    float maxY = 4.5f;
+    float velocity = 1.5f;
+    float addTime = 0.5f;
+    bool isRight;
+    bool isClicked;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        front.SetActive(true);
+        back.SetActive(false);
+
+        if (Random.Range(0.0f, 1.0f) > 0.5f)
+        {
+            isRight = true;
+            transform.position = new Vector3(3.3f, Random.Range(minY, maxY), 0.0f);
+            front.GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        else
+        {
+            isRight = false;
+            transform.position = new Vector3(-3.3f, Random.Range(minY, maxY), 0.0f);
+            front.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        isOver = false;
+        isClicked = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!isClicked)
+        {
+            if (isRight)
+                transform.position += Vector3.left * velocity * Time.deltaTime;
+            else
+                transform.position += Vector3.right * velocity * Time.deltaTime;
+        }
+
+        if (isOver && Input.GetMouseButtonDown(0))
+        {
+            OnClick();
+        }
+    }
+
+    public void OnClick()
+    {
+        isClicked = true;
+        front.SetActive(false);
+        back.SetActive(true);
+
+        Invoke("DestroyObject", 0.5f);
+    }
+
+    void DestroyObject()
+    {
+        GameManager.instance.AddTime(addTime);
+        GameObject timeAddTextObj = Instantiate(textAddTime, position: transform.position, rotation: Quaternion.identity);
+        timeAddTextObj.SetActive(false);
+        timeAddTextObj.GetComponent<TimeAddText>().addAmount = addTime;
+        timeAddTextObj.SetActive(true);
+
+        Destroy(gameObject);
+    }
+
+    private void OnMouseOver()
+    {
+        isOver = true;
+    }
+
+    private void OnMouseExit()
+    {
+        isOver = false;
+    }
+}
