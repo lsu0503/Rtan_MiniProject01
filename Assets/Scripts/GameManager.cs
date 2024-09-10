@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
     public Card secondCard;
 
     public Text timeText;
+    public Animator animatorTimeText;
     float time = 0.0f;
+
     int timeRtanCount = 0;
     public GameObject timeRtan;
 
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animatorTimeText.SetBool("isAlert", false);
         onAlert = false;
         AudioManager.instance.SetClipStart(1);
 
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
         if (time >= 25.0f && time < 30.0f && !onAlert)
         {
             onAlert = true;
+            animatorTimeText.SetBool("isAlert", true);
             AudioManager.instance.SetClipStart(2);
         }
     }
