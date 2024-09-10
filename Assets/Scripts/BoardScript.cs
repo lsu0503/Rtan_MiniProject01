@@ -13,10 +13,10 @@ public class BoardScript : MonoBehaviour
         for(int i = 0; i < arr.Length; i++)
         {
             GameObject go = Instantiate(card, this.transform);
-            float x = (i % 4) * 1.4f - 2.1f; ;
-            float y = (i / 4) * 1.4f - 3.0f;
-            go.transform.position = new Vector2(x, y);
-            go.GetComponent<Card>().Setting(arr[i]);
+            float x = (i % 4) * 1.4f - 2.1f;
+            float y = (i / 4) * -1.4f + 1.25f;
+            go.transform.position = new Vector2(x - 8f, y + 8f);
+            go.GetComponent<Card>().Setting(arr[i], x, y, i * 0.08f);
         }
 
         GameManager.instance.cardCount = arr.Length;

@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
@@ -7,9 +9,14 @@ public class Card : MonoBehaviour
     public GameObject front;
     public GameObject back;
     public Animator anim;
+    public Text text;
 
     public int idx = 0;
 
+    float destX, destY;
+    float moveAfterSec;
+    [SerializeField]
+    float flySpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,20 +27,28 @@ public class Card : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        moveAfterSec -= Time.deltaTime;
+		if (moveAfterSec <= 0f) {
+            Vector2 dest = new Vector2(destX, destY);
+            transform.position = Vector2.Lerp(transform.position, dest, flySpeed * Time.deltaTime);
+        }
     }
 
-    public void Setting(int idx)
+    public void Setting(int idx, float destX, float destY, float moveAfterSec)
     {
         this.idx = idx;
         frontImage.sprite = Resources.Load<Sprite>($"rtan{this.idx}");
-    }
+        this.destX = destX;
+        this.destY = destY;
+        this.moveAfterSec = moveAfterSec;
+	}
 
     public void OpenCard()
     {
         anim.SetBool("isOpen", true);
-        front.SetActive(true);
-        back.SetActive(false);
+        text.text = "";
+        //front.SetActive(true);
+        //back.SetActive(false);
 
         if(GameManager.instance.firstCard == null)
         {
@@ -64,7 +79,8 @@ public class Card : MonoBehaviour
     void CloseCardInvoke()
     {
         anim.SetBool("isOpen", false);
-        front.SetActive(false);
-        back.SetActive(true);
-    }
+		text.text = "?";
+		//front.SetActive(false);
+		//back.SetActive(true);
+	}
 }
