@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     AudioSource audioSource;
-    public AudioClip[] clip = new AudioClip[2];
+    public AudioClip[] clip = new AudioClip[4];
     int clipCurrent;
 
     public Card firstCard;
@@ -147,6 +147,8 @@ public class GameManager : MonoBehaviour
         }
 
         bestTimeRecordNumText.text = bestTimeRecord.ToString("N2");
+
+        audioSource.PlayOneShot(clip[2]);
     }
 
     void GameFailure()
@@ -154,6 +156,9 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.StopAudio(); // Stop BGM
         Time.timeScale = 0.0f;
         failureUi.SetActive(true);
+
+        audioSource.volume = audioSource.volume * 0.1f;
+        audioSource.PlayOneShot(clip[3]);
     }
 
     public void AddTime(float amount)

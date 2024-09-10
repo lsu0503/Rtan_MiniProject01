@@ -2270,6 +2270,8 @@ MonoBehaviour:
   clip:
   - {fileID: 8300000, guid: f2b87b3b69c475f4299585113695db02, type: 3}
   - {fileID: 8300000, guid: 19fdb1dc17a2baf43806c8d244a91fbd, type: 3}
+  - {fileID: 8300000, guid: 776db49b14f128d4e9e13ace78a8f42d, type: 3}
+  - {fileID: 8300000, guid: 61b5e2ad226c8ff439afbdd24a0553e4, type: 3}
   firstCard: {fileID: 0}
   secondCard: {fileID: 0}
   timeText: {fileID: 1688555487}
