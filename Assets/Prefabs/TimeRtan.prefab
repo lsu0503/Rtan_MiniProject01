@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2205832819099323760}
   - component: {fileID: 2875020953327049264}
-  - component: {fileID: 8012087636814023706}
+  - component: {fileID: 5797615314308955696}
   m_Layer: 0
-  m_Name: Idle
+  m_Name: Moving
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &8012087636814023706
+--- !u!95 &5797615314308955696
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 664235623887765161}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a652352749d38ed408d82bd9f2aaf527, type: 2}
+  m_Controller: {fileID: 9100000, guid: f7e5550157dc17c4b8c9fae4625c4861, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ab81c08a3d4af429da8c7d3499c26a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  front: {fileID: 664235623887765161}
-  back: {fileID: 7641647748358661882}
+  moving: {fileID: 664235623887765161}
+  touched: {fileID: 7641647748358661882}
   textAddTime: {fileID: 7726256308934496832, guid: 02e1f45da29706644bb624bd7f907cc5, type: 3}
 --- !u!61 &5670054268577318525
 BoxCollider2D:
@@ -274,14 +274,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7060eee89f75f4240b7ce0a0774fb626, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c97698d11dfb922488cae56724276128, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

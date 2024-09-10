@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 7654702438199435599}
   - component: {fileID: 631525811614370155}
   m_Layer: 0
-  m_Name: AddTimeText
+  m_Name: TextAddTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

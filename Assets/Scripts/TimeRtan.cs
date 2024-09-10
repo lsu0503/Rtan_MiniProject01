@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class TimeRtan : MonoBehaviour
 {
-    public GameObject front;
-    public GameObject back;
+    public GameObject moving;
+    public GameObject touched;
     public GameObject textAddTime;
 
     bool isOver;
@@ -19,21 +19,21 @@ public class TimeRtan : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        front.SetActive(true);
-        back.SetActive(false);
+        moving.SetActive(true);
+        touched.SetActive(false);
 
         if (Random.Range(0.0f, 1.0f) > 0.5f)
         {
             isRight = true;
             transform.position = new Vector3(3.3f, Random.Range(minY, maxY), 0.0f);
-            front.GetComponent<SpriteRenderer>().flipX = true;
+            moving.GetComponent<SpriteRenderer>().flipX = true;
         }
 
         else
         {
             isRight = false;
             transform.position = new Vector3(-3.3f, Random.Range(minY, maxY), 0.0f);
-            front.GetComponent<SpriteRenderer>().flipX = false;
+            moving.GetComponent<SpriteRenderer>().flipX = false;
         }
 
         isOver = false;
@@ -46,9 +46,17 @@ public class TimeRtan : MonoBehaviour
         if (!isClicked)
         {
             if (isRight)
+            {
                 transform.position += Vector3.left * velocity * Time.deltaTime;
+                if (transform.position.x < -3.5f)
+                    Destroy(gameObject);
+            }
             else
+            {
                 transform.position += Vector3.right * velocity * Time.deltaTime;
+                if (transform.position.x > 3.5f)
+                    Destroy(gameObject);
+            }
         }
 
         if (isOver && Input.GetMouseButtonDown(0))
@@ -60,8 +68,8 @@ public class TimeRtan : MonoBehaviour
     public void OnClick()
     {
         isClicked = true;
-        front.SetActive(false);
-        back.SetActive(true);
+        moving.SetActive(false);
+        touched.SetActive(true);
 
         Invoke("DestroyObject", 0.5f);
     }
