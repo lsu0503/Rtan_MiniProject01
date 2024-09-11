@@ -1,30 +1,100 @@
+using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class BoardScript : MonoBehaviour
 {
-    public GameObject card;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+	static BoardScript instance;
+
+	public GameObject card;
+
+	List<GameObject> cardList = new List<GameObject>();
+
+	public static BoardScript Instance {
+		get { return instance; }
+	}
+
+	void Awake () {
+		if (instance == null) {
+			instance = this;
+		}
+	}
+
+	void Start()
     {
-        int[] arr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
-        arr = arr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
+		StartLevel(0);
+	}
 
-        for(int i = 0; i < arr.Length; i++)
-        {
-            GameObject go = Instantiate(card, this.transform);
-            float x = (i % 4) * 1.4f - 2.1f;
-            float y = (i / 4) * -1.4f + 1.25f;
-            go.transform.position = new Vector2(x - 8f, y + 8f);
-            go.GetComponent<Card>().Setting(arr[i], x, y, i * 0.08f);
-        }
+	public void StartLevel (int level) {
+		cardList.Clear();
+		switch (level) {
+		case 0: SetLevel_0(); break;
+		case 1: SetLevel_1(); break;
+		}
+	}
 
-        GameManager.instance.cardCount = arr.Length;
-    }
+	public void RemoveCards () {
+		foreach (GameObject card in cardList) {
+			if (card == null) {
+				continue;
+			}
+			Destroy(card);
+		}
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void SetLevel_0 () {
+		int[] arr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
+		arr = arr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
+
+		for (int i = 0; i < arr.Length; i++) {
+			float x = (i % 4) * 1.4f - 2.1f;
+			float y = (i / 4) * -1.4f + 1.25f;
+
+			GameObject go = Instantiate(card, transform);
+			go.transform.position = new Vector2(x - 8f, y + 8f);
+			go.GetComponent<Card>().Setting(arr[i], x, y, i * 0.08f);
+			cardList.Add(go);
+		}
+
+		GameManager.instance.cardCount = arr.Length;
+	}
+
+    void SetLevel_1 () {
+		int[] arr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9 };
+		arr = arr.OrderBy(x => Random.Range(0f, 9f)).ToArray();
+
+		int l = 0, t = 0, w = 4, h = 5; // left, top, width, height
+		int cx = 0, cy = 0; // current x, y
+		int[] dx = {1, 0, -1, 0}; // delta x, y
+		int[] dy = {0, 1, 0, -1};
+		int dir = 0;
+
+		for (int i = 0; i < arr.Length; i++) {
+			float x = cx * 1.4f - 2.1f;
+			float y = cy * -1.4f + 1.25f;
+
+			GameObject go = Instantiate(card, transform);
+			go.transform.position = new Vector2(x - 8f, y + 8f);
+			go.GetComponent<Card>().Setting(arr[i], x, y, i * 0.08f);
+			cardList.Add(go);
+
+			int nx = cx + dx[dir];
+			int ny = cy + dy[dir];
+
+			if (nx == l && ny == t) {
+				l++; t++; w--; h--;
+			}
+			if (nx == l-1 || ny == t-1 || nx == w || ny == h) {
+				dir = (dir + 1) % 4;
+			}
+
+			cx += dx[dir];
+			cy += dy[dir];
+		}
+
+		GameManager.instance.cardCount = arr.Length;
+	}
+
+
 }

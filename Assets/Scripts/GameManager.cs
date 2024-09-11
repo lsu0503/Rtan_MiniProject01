@@ -20,11 +20,20 @@ public class GameManager : MonoBehaviour
 
     public GameObject successUi;
     public GameObject failureUi;
+    public GameObject clearLevelUi;
     public Text timeRecordNumText;
     public Text bestTimeRecordNumText;
     public int cardCount = 0;
 
     bool onAlert;
+
+    [SerializeField]
+    int level = 0;
+    int lastLevel = 1;
+
+    public int Level {
+        get { return level; }
+    }
 
     private void Awake()
     {
@@ -97,14 +106,18 @@ public class GameManager : MonoBehaviour
             firstCard.DestroyCard();
             secondCard.DestroyCard();
 
-            clipCurrent = 0;
-            Invoke("SoundOccur", 0.7f);
-
             cardCount -= 2;
             if (cardCount <= 0)
             {
-                GameSuccess();
-            }
+                if (level == lastLevel) {
+                    GameSuccess();
+                } else {
+                    ClearLevel();
+                }
+            } else {
+				clipCurrent = 0;
+				Invoke("SoundOccur", 0.7f);
+			}
         }
         else
         {
@@ -123,7 +136,7 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.StopAudio(); // Stop BGM
         Time.timeScale = 0.0f;
         successUi.SetActive(true);
-        timeRecordNumText.text = time.ToString("N2");
+		timeRecordNumText.text = time.ToString("N2");
 
         string bestTimeRecordKey = "bestTimeRecord";
         float bestTimeRecord;
@@ -147,7 +160,33 @@ public class GameManager : MonoBehaviour
         audioSource.PlayOneShot(clip[2]);
     }
 
-    void GameFailure()
+	public void ClearLevel () {
+		AudioManager.instance.StopAudio(); // Stop BGM
+		Time.timeScale = 0.0f;
+        clearLevelUi.SetActive(true);
+        var script = clearLevelUi.GetComponent<ClearLevelUiScript>();
+        script.TimeRecordNumText.text = time.ToString("N2");
+
+
+		string bestTimeRecordKey = "bestTimeRecord";
+		float bestTimeRecord;
+		if (PlayerPrefs.HasKey(bestTimeRecordKey)) {
+			bestTimeRecord = PlayerPrefs.GetFloat(bestTimeRecordKey);
+		} else {
+			bestTimeRecord = time;
+		}
+
+		if (bestTimeRecord < time) {
+			bestTimeRecord = time;
+		} else {
+			bestTimeRecord = time;
+			PlayerPrefs.SetFloat(bestTimeRecordKey, bestTimeRecord);
+		}
+
+		script.BestTimeRecordNumText.text = bestTimeRecord.ToString("N2");
+	}
+
+	void GameFailure()
     {
         AudioManager.instance.StopAudio(); // Stop BGM
         Time.timeScale = 0.0f;
@@ -168,6 +207,21 @@ public class GameManager : MonoBehaviour
     {
         audioSource.PlayOneShot(clip[clipCurrent]);
     }
+
+    public void GoNextLevel () {
+        level += 1;
+        time = 0f;
+        timeRtanCount = 0;
+		Time.timeScale = 1f;
+
+        successUi.SetActive(false);
+        clearLevelUi.SetActive(false);
+
+        BoardScript.Instance.RemoveCards();
+		BoardScript.Instance.StartLevel(level);
+    }
+
+    
 }
 
 
