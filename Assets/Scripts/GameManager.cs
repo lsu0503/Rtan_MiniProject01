@@ -217,11 +217,12 @@ public class GameManager : MonoBehaviour
         successUi.SetActive(false);
         clearLevelUi.SetActive(false);
 
+        AudioManager.instance.SetClipStart(1);
+        animatorTimeText.SetBool("isAlert", false);
+
         BoardScript.Instance.RemoveCards();
 		BoardScript.Instance.StartLevel(level);
     }
-
-    
 }
 
 
