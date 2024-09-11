@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SelectLevelButton : MonoBehaviour
+public class SelectLevelSceneButton : MonoBehaviour
 {
     public AudioClip clip;
     AudioSource audioSource;
@@ -13,7 +13,7 @@ public class SelectLevelButton : MonoBehaviour
         audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume control
     }
 
-    public void SelectLevel()
+    public void MoveToSelectLevelScene()
     {
         StartCoroutine(PlayAudioThenLoadScene());
     }

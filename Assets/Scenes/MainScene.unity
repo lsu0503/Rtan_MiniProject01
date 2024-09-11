@@ -1170,10 +1170,10 @@ GameObject:
   - component: {fileID: 383179209}
   - component: {fileID: 383179208}
   - component: {fileID: 383179207}
-  - component: {fileID: 383179210}
   - component: {fileID: 383179211}
+  - component: {fileID: 383179212}
   m_Layer: 5
-  m_Name: SelectLevelButton
+  m_Name: SelectLevelSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1243,9 +1243,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 383179210}
-        m_TargetAssemblyTypeName: SelectLevelButton, Assembly-CSharp
-        m_MethodName: SelectLevel
+      - m_Target: {fileID: 383179212}
+        m_TargetAssemblyTypeName: SelectLevelSceneButton, Assembly-CSharp
+        m_MethodName: MoveToSelectLevelScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1293,19 +1293,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383179205}
   m_CullTransparentMesh: 1
---- !u!114 &383179210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383179205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7694c8d5839d1d04a9f488bf33272d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 214198ed2e6542b419095b3efe07ec06, type: 3}
 --- !u!82 &383179211
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1402,6 +1389,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &383179212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383179205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31fb70eb55871b468b03377d3dffdaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 214198ed2e6542b419095b3efe07ec06, type: 3}
 --- !u!1 &400950664
 GameObject:
   m_ObjectHideFlags: 0
