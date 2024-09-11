@@ -208,8 +208,8 @@ public class GameManager : MonoBehaviour
         audioSource.PlayOneShot(clip[clipNum]);
     }
 
-    public void GoNextLevel () {
-        level += 1;
+    public void GoNextLevel (int level) {
+        this.level = level;
         time = 0f;
         timeRtanCount = 0;
 		Time.timeScale = 1f;

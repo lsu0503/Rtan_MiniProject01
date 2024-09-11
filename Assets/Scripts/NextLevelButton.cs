@@ -21,6 +21,6 @@ public class NextLevelButton : MonoBehaviour
     {
         audioSource.PlayOneShot(clip);
         yield return new WaitForSecondsRealtime(clip.length);
-        GameManager.instance.GoNextLevel();
+        GameManager.instance.GoNextLevel(GameManager.instance.Level + 1);
     }
 }
