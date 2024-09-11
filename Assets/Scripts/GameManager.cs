@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -115,14 +116,12 @@ public class GameManager : MonoBehaviour
                     ClearLevel();
                 }
             } else {
-				clipCurrent = 0;
-				Invoke("SoundOccur", 0.7f);
+                StartCoroutine(SoundOccur(0));
 			}
         }
         else
         {
-            clipCurrent = 1;
-            Invoke("SoundOccur", 0.7f);
+            StartCoroutine(SoundOccur(1));
 
             firstCard.CloseCard();
             secondCard.CloseCard();
@@ -203,9 +202,10 @@ public class GameManager : MonoBehaviour
             time = 0.0f;
     }
 
-    public void SoundOccur()
+    public IEnumerator SoundOccur(int clipNum)
     {
-        audioSource.PlayOneShot(clip[clipCurrent]);
+        yield return new WaitForSecondsRealtime(0.7f);
+        audioSource.PlayOneShot(clip[clipNum]);
     }
 
     public void GoNextLevel () {
