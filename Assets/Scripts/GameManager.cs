@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.SetClipStart(1);
 
         audioSource =GetComponent<AudioSource>();
+        audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume control
 
         Time.timeScale = 1.0f;
     }
@@ -50,8 +51,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-
-        audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume countrol
 
         UpdateTimeRtan();
         UpdateAlertSound();
@@ -154,7 +153,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         failureUi.SetActive(true);
 
-        audioSource.volume = audioSource.volume * 0.1f;
+        audioSource.volume = AudioManager.instance.seSound * 0.08f;
         audioSource.PlayOneShot(clip[3]);
     }
 

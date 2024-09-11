@@ -23,6 +23,7 @@ public class TimeRtan : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume control
 
         moving.SetActive(true);
         touched.SetActive(false);

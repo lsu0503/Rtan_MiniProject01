@@ -25,13 +25,12 @@ public class Card : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume control
     }
 
     // Update is called once per frame
     void Update()
     {
-        audioSource.volume = AudioManager.instance.seSound;
-
         moveAfterSec -= Time.deltaTime;
 		if (moveAfterSec <= 0f) {
             Vector2 dest = new Vector2(destX, destY);
