@@ -6,6 +6,7 @@ public class LevelSelectorButton: MonoBehaviour
 {
     public AudioClip clip;
     AudioSource audioSource;
+    public int level = 0;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class LevelSelectorButton: MonoBehaviour
     {
         audioSource.PlayOneShot(clip);
         yield return new WaitForSecondsRealtime(clip.length);
+        LevelPreSelector.GetInstance().PreSelectedLevel = level;
         SceneManager.LoadScene("MainScene");
     }
 }

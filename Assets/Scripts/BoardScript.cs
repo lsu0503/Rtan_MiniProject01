@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class BoardScript : MonoBehaviour
@@ -23,14 +22,23 @@ public class BoardScript : MonoBehaviour
 
 	void Start()
     {
-		StartLevel(0);
+		StartLevel(LevelPreSelector.GetInstance().PreSelectedLevel);
 	}
 
-	public void StartLevel (int level) {
+	public void StartLevel (int level) 
+	{
 		cardList.Clear();
-		switch (level) {
-		case 0: SetLevel_0(); break;
-		case 1: SetLevel_1(); break;
+		switch (level) 
+		{
+			case 0: 
+				SetLevel0();
+				break;
+			case 1:
+				setAllowLevel(1);
+				SetLevel1(); 
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -43,7 +51,7 @@ public class BoardScript : MonoBehaviour
 		}
 	}
 
-	void SetLevel_0 () {
+	void SetLevel0 () {
 		int[] arr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
 		arr = arr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
 
@@ -60,7 +68,7 @@ public class BoardScript : MonoBehaviour
 		GameManager.instance.cardCount = arr.Length;
 	}
 
-    void SetLevel_1 () {
+    void SetLevel1 () {
 		int[] arr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9 };
 		arr = arr.OrderBy(x => Random.Range(0f, 9f)).ToArray();
 
@@ -96,5 +104,9 @@ public class BoardScript : MonoBehaviour
 		GameManager.instance.cardCount = arr.Length;
 	}
 
-
+	void setAllowLevel(int level)
+	{
+		string allowLevelKey = "allowLevel";
+		PlayerPrefs.SetInt(allowLevelKey, level);
+	}
 }
