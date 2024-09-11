@@ -26,6 +26,6 @@ public class StartButton : MonoBehaviour
     {
         audioSource.PlayOneShot(clip);
         yield return new WaitForSeconds(clip.length);
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("SelectLevelScene");
     }
 }
