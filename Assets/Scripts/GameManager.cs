@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time += Time.deltaTime;
+
         audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume countrol
 
         UpdateTimeRtan();
@@ -58,7 +60,6 @@ public class GameManager : MonoBehaviour
 
     void UpdateTimeRtan()
     {
-        time += Time.deltaTime;
         if((int)(time / 1.0f) > timeRtanCount)
         {
             timeRtanCount++;
@@ -136,11 +137,7 @@ public class GameManager : MonoBehaviour
             bestTimeRecord = time;
         }
 
-        if (bestTimeRecord < time)
-        {
-            bestTimeRecord = time;
-        }
-        else
+        if (time < bestTimeRecord)
         {
             bestTimeRecord = time;
             PlayerPrefs.SetFloat(bestTimeRecordKey, bestTimeRecord);
