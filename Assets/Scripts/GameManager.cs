@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int cardCount = 0;
 
     bool onAlert;
+    public bool isEnd;
 
     [SerializeField]
     int level = 0;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         animatorTimeText.SetBool("isAlert", false);
         onAlert = false;
+        isEnd = false;
         AudioManager.instance.SetClipStart(1);
 
         audioSource =GetComponent<AudioSource>();
@@ -62,9 +64,12 @@ public class GameManager : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        UpdateTimeRtan();
-        UpdateAlertSound();
-        UpdateTimeText();
+        if (!isEnd)
+        {
+            UpdateTimeRtan();
+            UpdateAlertSound();
+            UpdateTimeText();
+        }
     }
 
     void UpdateTimeRtan()
@@ -92,6 +97,7 @@ public class GameManager : MonoBehaviour
         {
             time = 30.0f;
             timeText.text = time.ToString("N2");
+            isEnd = true;
             GameFailure();
         }
         else
@@ -110,6 +116,8 @@ public class GameManager : MonoBehaviour
             cardCount -= 2;
             if (cardCount <= 0)
             {
+                isEnd = true;
+
                 if (level == lastLevel) {
                     GameSuccess();
                 } else {
@@ -119,6 +127,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(SoundOccur(0));
 			}
         }
+
         else
         {
             StartCoroutine(SoundOccur(1));
@@ -183,7 +192,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		script.BestTimeRecordNumText.text = bestTimeRecord.ToString("N2");
-	}
+        audioSource.PlayOneShot(clip[2]);
+    }
 
 	void GameFailure()
     {
@@ -191,7 +201,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         failureUi.SetActive(true);
 
-        audioSource.volume = AudioManager.instance.seSound * 0.08f;
+        audioSource.volume = AudioManager.instance.seSound * 0.5f;
         audioSource.PlayOneShot(clip[3]);
     }
 
@@ -213,6 +223,9 @@ public class GameManager : MonoBehaviour
         time = 0f;
         timeRtanCount = 0;
 		Time.timeScale = 1f;
+
+        isEnd = false;
+        onAlert = false;
 
         successUi.SetActive(false);
         clearLevelUi.SetActive(false);

@@ -68,6 +68,9 @@ public class TimeRtan : MonoBehaviour
             {
                 OnClick();
             }
+
+            if (GameManager.instance.isEnd)
+                Invoke("DestroyObject", 0.05f);
         }
     }
 
@@ -79,10 +82,10 @@ public class TimeRtan : MonoBehaviour
 
         audioSource.PlayOneShot(clip);
 
-        Invoke("DestroyObject", 0.5f);
+        Invoke("Clicked", 0.5f);
     }
 
-    void DestroyObject()
+    void Clicked()
     {
         GameManager.instance.AddTime(addTime);
         GameObject timeAddTextObj = Instantiate(textAddTime, position: transform.position, rotation: Quaternion.identity);
@@ -90,6 +93,11 @@ public class TimeRtan : MonoBehaviour
         timeAddTextObj.GetComponent<TimeAddText>().addAmount = addTime;
         timeAddTextObj.SetActive(true);
 
+        Destroy(gameObject);
+    }
+
+    void DestroyObject()
+    {
         Destroy(gameObject);
     }
 
