@@ -856,7 +856,6 @@ GameObject:
   - component: {fileID: 349536158}
   - component: {fileID: 349536162}
   - component: {fileID: 349536161}
-  - component: {fileID: 349536160}
   - component: {fileID: 349536159}
   m_Layer: 5
   m_Name: BestTimeRecordText
@@ -928,7 +927,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 349536160}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RetryButton, Assembly-CSharp
         m_MethodName: Retry
         m_Mode: 1
@@ -940,19 +939,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &349536160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349536157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe37480a65ea6ed4cb9528624a9e0b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clip: {fileID: 0}
 --- !u!114 &349536161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2015,7 +2001,6 @@ GameObject:
   - component: {fileID: 887980085}
   - component: {fileID: 887980089}
   - component: {fileID: 887980088}
-  - component: {fileID: 887980087}
   - component: {fileID: 887980086}
   m_Layer: 5
   m_Name: BestTimeRecordNumText
@@ -2087,7 +2072,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 887980087}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RetryButton, Assembly-CSharp
         m_MethodName: Retry
         m_Mode: 1
@@ -2099,19 +2084,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &887980087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 887980084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe37480a65ea6ed4cb9528624a9e0b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clip: {fileID: 0}
 --- !u!114 &887980088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2368,7 +2340,6 @@ GameObject:
   - component: {fileID: 1422408933}
   - component: {fileID: 1422408937}
   - component: {fileID: 1422408936}
-  - component: {fileID: 1422408935}
   - component: {fileID: 1422408934}
   m_Layer: 5
   m_Name: TimeRecordText
@@ -2440,7 +2411,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1422408935}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RetryButton, Assembly-CSharp
         m_MethodName: Retry
         m_Mode: 1
@@ -2452,19 +2423,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1422408935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1422408932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe37480a65ea6ed4cb9528624a9e0b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clip: {fileID: 0}
 --- !u!114 &1422408936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3507,7 +3465,6 @@ GameObject:
   - component: {fileID: 2000541225}
   - component: {fileID: 2000541229}
   - component: {fileID: 2000541228}
-  - component: {fileID: 2000541227}
   - component: {fileID: 2000541226}
   m_Layer: 5
   m_Name: TimeRecordNumText
@@ -3579,7 +3536,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2000541227}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RetryButton, Assembly-CSharp
         m_MethodName: Retry
         m_Mode: 1
@@ -3591,19 +3548,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2000541227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000541224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe37480a65ea6ed4cb9528624a9e0b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clip: {fileID: 0}
 --- !u!114 &2000541228
 MonoBehaviour:
   m_ObjectHideFlags: 0
