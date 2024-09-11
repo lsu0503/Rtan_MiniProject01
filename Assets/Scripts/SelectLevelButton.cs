@@ -1,12 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SelectLevelButton : MonoBehaviour
 {
+    public AudioClip clip;
+    AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume control
+    }
+
     public void SelectLevel()
     {
-        SceneManager.LoadScene("MainScene");
+        StartCoroutine(PlayAudioThenLoadScene());
+    }
+
+    IEnumerator PlayAudioThenLoadScene()
+    {
+        audioSource.PlayOneShot(clip);
+        yield return new WaitForSecondsRealtime(clip.length);
+        SceneManager.LoadScene("SelectLevelScene");
     }
 }

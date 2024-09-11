@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class RetryButton : MonoBehaviour
-
 {
     public AudioClip clip;
     AudioSource audioSource;
