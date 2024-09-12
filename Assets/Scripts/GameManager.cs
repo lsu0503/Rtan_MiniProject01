@@ -243,9 +243,9 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1f;
 
         if (level == 0 || level == 1) {
-            timeLimit = 30f;
+            timeLimit = 60f;
         } else if (level == 2) {
-            timeLimit = 20f;
+            timeLimit = 30f;
         }
 
         isEnd = false;
