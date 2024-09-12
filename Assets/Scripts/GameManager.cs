@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public bool isEnd;
 
     int level;
-    int lastLevel = 1;
+    //int lastLevel = 1;
 
     public int Level {
         get => level;
