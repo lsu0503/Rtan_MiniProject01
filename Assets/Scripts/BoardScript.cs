@@ -106,7 +106,7 @@ public class BoardScript : MonoBehaviour
 
 	void setAllowLevel(int level)
 	{
-		string allowLevelKey = "allowLevel";
+		string allowLevelKey = "AllowLevel";
 		PlayerPrefs.SetInt(allowLevelKey, level);
 	}
 }
