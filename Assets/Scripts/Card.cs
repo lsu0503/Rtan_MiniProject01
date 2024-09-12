@@ -49,21 +49,24 @@ public class Card : MonoBehaviour
 
     public void OpenCard()
     {
-        anim.SetBool("isOpen", true);
-        text.text = "";
-        //front.SetActive(true);
-        //back.SetActive(false);
-
-        audioSource.PlayOneShot(clip);
-
-        if(GameManager.instance.firstCard == null)
+        if (!GameManager.instance.isEnd)
         {
-            GameManager.instance.firstCard = this;
-        }
-        else if (GameManager.instance.secondCard == null)
-        {
-            GameManager.instance.secondCard = this;
-            GameManager.instance.Matched();
+            anim.SetBool("isOpen", true);
+            text.text = "";
+            //front.SetActive(true);
+            //back.SetActive(false);
+
+            audioSource.PlayOneShot(clip);
+
+            if (GameManager.instance.firstCard == null)
+            {
+                GameManager.instance.firstCard = this;
+            }
+            else if (GameManager.instance.secondCard == null)
+            {
+                GameManager.instance.secondCard = this;
+                GameManager.instance.Matched();
+            }
         }
     }
 
