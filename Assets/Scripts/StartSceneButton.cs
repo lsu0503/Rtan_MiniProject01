@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartButton : MonoBehaviour
+public class StartSceneButton : MonoBehaviour
 {
     public AudioClip clip;
     AudioSource audioSource;
@@ -17,7 +17,7 @@ public class StartButton : MonoBehaviour
         audioSource.volume = AudioManager.instance.seSound;
     }
 
-    public void StartButn()
+    public void StartSceneButn()
     {
         StartCoroutine(PlayAudioThenLoadScene());
     }
@@ -26,6 +26,8 @@ public class StartButton : MonoBehaviour
     {
         audioSource.PlayOneShot(clip);
         yield return new WaitForSecondsRealtime(clip.length);
-        SceneManager.LoadScene("SelectLevelScene");
+        Time.timeScale = 1.0f;
+        Destroy(AudioManager.instance);
+        SceneManager.LoadScene("StartScene");
     }
 }
