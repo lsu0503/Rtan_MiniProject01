@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class GoHiddenStageButton : MonoBehaviour {
 	public void GoToHiddenStage() {
-		GameManager.instance.GoNextLevel(2);
+		GameManager.instance.StartLevel(2);
 	}
 }

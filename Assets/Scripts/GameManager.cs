@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         set => level = value;
     }
 
+    int flipCount = 0;
+
     private void Awake()
     {
         if(instance == null)
@@ -55,11 +57,11 @@ public class GameManager : MonoBehaviour
         //isEnd = false;
         //AudioManager.instance.SetClipStart(1);
 
-        audioSource =GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume control
 
         level = PlayerPrefs.GetInt("Level", 0);
-        GoNextLevel(level);
+        StartLevel(level);
 
         //Time.timeScale = 1.0f;
     }
@@ -115,6 +117,7 @@ public class GameManager : MonoBehaviour
 
     public void Matched()
     {
+        flipCount++;
         if (firstCard.idx == secondCard.idx)
         {
             firstCard.DestroyCard();
@@ -127,8 +130,8 @@ public class GameManager : MonoBehaviour
                 SetAllowLevel(level+1);
 
                 if (level == 1) {
-                    if (time <= 10f) {
-                        HiddenStageSuccess();
+                    if (flipCount < 100) {
+                        GoToHiddenStage();
                     } else {
                         GameSuccess();
                     }
@@ -232,8 +235,9 @@ public class GameManager : MonoBehaviour
         audioSource.PlayOneShot(clip[clipNum]);
     }
 
-    public void GoNextLevel (int level) {
+    public void StartLevel (int level) {
         this.level = level;
+        flipCount = 0;
         time = 0f;
         timeRtanCount = 0;
 		Time.timeScale = 1f;
@@ -265,7 +269,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt(allowLevelKey, level);
     }
 
-    void HiddenStageSuccess () {
+    void GoToHiddenStage () {
 		AudioManager.instance.StopAudio(); // Stop BGM
 		Time.timeScale = 0.0f;
 		hiddenStageUi.SetActive(true);
