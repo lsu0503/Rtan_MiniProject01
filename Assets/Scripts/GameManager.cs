@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Text timeText;
     public Animator animatorTimeText;
     float time = 0.0f;
+    float timeLimit;
 
     int timeRtanCount = 0;
     public GameObject timeRtan;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject successUi;
     public GameObject failureUi;
     public GameObject clearLevelUi;
+    public GameObject hiddenStageUi;
     public Text timeRecordNumText;
     public Text bestTimeRecordNumText;
     public int cardCount = 0;
@@ -29,12 +31,12 @@ public class GameManager : MonoBehaviour
     bool onAlert;
     public bool isEnd;
 
-    [SerializeField]
-    int level = 0;
+    int level;
     int lastLevel = 1;
 
     public int Level {
-        get { return level; }
+        get => level;
+        set => level = value;
     }
 
     private void Awake()
@@ -48,15 +50,18 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animatorTimeText.SetBool("isAlert", false);
-        onAlert = false;
-        isEnd = false;
-        AudioManager.instance.SetClipStart(1);
+        //animatorTimeText.SetBool("isAlert", false);
+        //onAlert = false;
+        //isEnd = false;
+        //AudioManager.instance.SetClipStart(1);
 
         audioSource =GetComponent<AudioSource>();
         audioSource.volume = AudioManager.instance.seSound; // Sound effect's volume control
 
-        Time.timeScale = 1.0f;
+        level = PlayerPrefs.GetInt("Level", 0);
+        GoNextLevel(level);
+
+        //Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -66,7 +71,9 @@ public class GameManager : MonoBehaviour
 
         if (!isEnd)
         {
-            UpdateTimeRtan();
+            if (level == 2) { // Hidden stage
+                UpdateTimeRtan();
+            }
             UpdateAlertSound();
             UpdateTimeText();
         }
@@ -83,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateAlertSound()
     {
-        if (time >= 25.0f && time < 30.0f && !onAlert)
+        if (time >= timeLimit - 5f && time < timeLimit && !onAlert)
         {
             onAlert = true;
             animatorTimeText.SetBool("isAlert", true);
@@ -93,9 +100,9 @@ public class GameManager : MonoBehaviour
 
     void UpdateTimeText()
     {
-        if (time >= 30.0f)
+        if (time >= timeLimit)
         {
-            time = 30.0f;
+            time = timeLimit;
             timeText.text = time.ToString("N2");
             isEnd = true;
             GameFailure();
@@ -117,11 +124,17 @@ public class GameManager : MonoBehaviour
             if (cardCount <= 0)
             {
                 isEnd = true;
-                setAllowLevel(level+1);
+                SetAllowLevel(level+1);
 
-                if (level == lastLevel) {
-                    GameSuccess();
-                } else {
+                if (level == 1) {
+                    if (time <= 10f) {
+                        HiddenStageSuccess();
+                    } else {
+                        GameSuccess();
+                    }
+                } else if (level == 2) {
+					GameSuccess();
+				} else {
                     ClearLevel();
                 }
             } else {
@@ -225,11 +238,19 @@ public class GameManager : MonoBehaviour
         timeRtanCount = 0;
 		Time.timeScale = 1f;
 
+        if (level == 0 || level == 1) {
+            timeLimit = 30f;
+        } else if (level == 2) {
+            timeLimit = 20f;
+        }
+
         isEnd = false;
         onAlert = false;
 
         successUi.SetActive(false);
         clearLevelUi.SetActive(false);
+        hiddenStageUi.SetActive(false);
+        failureUi.SetActive(false);
 
         AudioManager.instance.SetClipStart(1);
         animatorTimeText.SetBool("isAlert", false);
@@ -238,11 +259,18 @@ public class GameManager : MonoBehaviour
 		BoardScript.Instance.StartLevel(level);
     }
 
-    void setAllowLevel(int level)
+    void SetAllowLevel(int level)
     {
         string allowLevelKey = "AllowLevel";
         PlayerPrefs.SetInt(allowLevelKey, level);
     }
+
+    void HiddenStageSuccess () {
+		AudioManager.instance.StopAudio(); // Stop BGM
+		Time.timeScale = 0.0f;
+		hiddenStageUi.SetActive(true);
+		audioSource.PlayOneShot(clip[2]);
+	}
 }
 
 

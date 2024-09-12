@@ -22,7 +22,8 @@ public class RetryButton : MonoBehaviour
     {
         audioSource.PlayOneShot(clip);
         yield return new WaitForSecondsRealtime(clip.length);
-        LevelPreSelector.GetInstance().PreSelectedLevel = GameManager.instance.Level;
-        SceneManager.LoadScene("MainScene");
+        //LevelPreSelector.GetInstance().PreSelectedLevel = GameManager.instance.Level;
+        //SceneManager.LoadScene("MainScene");
+        GameManager.instance.GoNextLevel(GameManager.instance.Level);
     }
 }

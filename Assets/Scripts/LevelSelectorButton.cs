@@ -24,6 +24,7 @@ public class LevelSelectorButton: MonoBehaviour
         audioSource.PlayOneShot(clip);
         yield return new WaitForSecondsRealtime(clip.length);
         LevelPreSelector.GetInstance().PreSelectedLevel = level;
+        PlayerPrefs.SetInt("Level", level);
         SceneManager.LoadScene("MainScene");
     }
 }
