@@ -34,7 +34,6 @@ public class BoardScript : MonoBehaviour
 				SetLevel0();
 				break;
 			case 1:
-				setAllowLevel(1);
 				SetLevel1(); 
 				break;
 			default:
@@ -102,11 +101,5 @@ public class BoardScript : MonoBehaviour
 		}
 
 		GameManager.instance.cardCount = arr.Length;
-	}
-
-	void setAllowLevel(int level)
-	{
-		string allowLevelKey = "AllowLevel";
-		PlayerPrefs.SetInt(allowLevelKey, level);
 	}
 }

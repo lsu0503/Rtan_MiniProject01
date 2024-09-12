@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
             if (cardCount <= 0)
             {
                 isEnd = true;
+                setAllowLevel(level+1);
 
                 if (level == lastLevel) {
                     GameSuccess();
@@ -235,6 +236,12 @@ public class GameManager : MonoBehaviour
 
         BoardScript.Instance.RemoveCards();
 		BoardScript.Instance.StartLevel(level);
+    }
+
+    void setAllowLevel(int level)
+    {
+        string allowLevelKey = "AllowLevel";
+        PlayerPrefs.SetInt(allowLevelKey, level);
     }
 }
 
