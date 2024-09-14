@@ -42,6 +42,8 @@ public class Card : MonoBehaviour
     {
         this.idx = idx;
         frontImage.sprite = Resources.Load<Sprite>($"rtan{this.idx}");
+        if (idx == 9)
+            frontImage.flipX = true;
         this.destX = destX;
         this.destY = destY;
         this.moveAfterSec = moveAfterSec;

@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
                 SetAllowLevel(level+1);
 
                 if (level == 1) {
-                    if (flipCount < 100) {
+                    if (flipCount < 35) {
                         GoToHiddenStage();
                     } else {
                         GameSuccess();
